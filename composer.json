@@ -1,0 +1,23 @@
+{
+  "name": "StalkAllex/yii2-kaspersky-utilities",
+  "license": "",
+  "type": "library",
+  "description": "Just wrapper for Kaspersky antivirus console commands",
+  "authors": [
+    {
+      "name": "Alex Aboimov",
+      "email": "akasstalkalex@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "PhpPackage\\": "src/"
+    }
+  },
+  "require": {},
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "squizlabs/php_codesniffer": "*",
+    "codeclimate/php-test-reporter": "dev-master"
+  }
+}
