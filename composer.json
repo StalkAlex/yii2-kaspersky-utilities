@@ -1,7 +1,8 @@
 {
   "name": "StalkAllex/yii2-kaspersky-utilities",
   "license": "",
-  "type": "library",
+  "keywords": [],
+  "type": "yii2-extension",
   "description": "Just wrapper for Kaspersky antivirus console commands",
   "authors": [
     {
@@ -11,7 +12,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "stalkalex\\utilities\\": "src/"
+      "stalkalex\\utilities\\": "src"
     }
   },
   "require": {},

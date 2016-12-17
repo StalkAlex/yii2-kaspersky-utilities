@@ -6,7 +6,7 @@ use yii\base\Component;
 
 /**
  * Class AvCheck
- * @package stalkalex\utilities
+ * @package stalkalex\utilities\components
  * Component responsible for file and directory check
  */
 class AvCheck extends Component
