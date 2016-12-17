@@ -6,26 +6,52 @@ use yii\base\Component;
 
 /**
  * Class AvCheck
+ * Responsible for file and directory check
  * @package stalkalex\utilities\components
- * Component responsible for file and directory check
  */
 class AvCheck extends Component
 {
-    public $binary = 'kav4fs-control';
     const QUARANTINE = 'Quarantine';
     const REMOVE = 'Remove';
     const CURE = 'Cure';
     const SKIP = 'Skip';
     const RECOMMENDED = 'Recommended';
 
+    public $binary = 'sudo kav4fs-control';
 
     /**
+     * Returns true if no viruses found
      * @param $file
      * @param string $action
      */
     public function check($file, $action = self::REMOVE)
     {
         $result = $this->execute($this->checkCommand($file, $action));
+        $parsedResult = $this->parse($result);
+        return $this->validate($parsedResult);
+    }
+
+    private function validate(array $result)
+    {
+        return $result['Threats found'] === 0
+            && $result['Removed'] === 0;
+    }
+
+    /**
+     * @param $result
+     * @return mixed
+     */
+    private function parse($result)
+    {
+        $lines = explode("\n", $result);
+        return array_reduce($lines, function ($acc, $item) {
+            $res = [];
+            preg_match_all('/([a-zA-Z ]+):.+(\d)/', $item, $res);
+            if (!empty($res) && isset($res[1][0], $res[2][0])) {
+                $acc[trim($res[1][0])] = (int)$res[2][0];
+            }
+            return $acc;
+        }, []);
     }
 
     /**
@@ -34,8 +60,7 @@ class AvCheck extends Component
      */
     private function execute($command)
     {
-        system($this->binary . ' ' . $command, $result);
-        return $result;
+        return shell_exec($this->binary . ' ' . $command);
     }
 
     /**
@@ -45,11 +70,6 @@ class AvCheck extends Component
      */
     private function checkCommand($file, $action)
     {
-        return "--action  --scanfile $file";
+        return "--action $action --scan-file $file";
     }
-
-
-   /* $command = "/opt/kaspersky/kav4fs/bin/kav4fs-control --action <действие> --scan-file <путь к
-файлу или директории>;";*/
-
 }
