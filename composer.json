@@ -1,6 +1,6 @@
 {
   "name": "stalkalex/yii2-kaspersky-utilities",
-  "license": "",
+  "license": "MIT",
   "keywords": ["yii2", "extension", "antivirus", "components"],
   "type": "yii2-extension",
   "description": "Just wrapper for Kaspersky antivirus console commands",
