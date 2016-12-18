@@ -31,6 +31,10 @@ class AvCheck extends Component
         return $this->validate($parsedResult);
     }
 
+    /**
+     * @param array $result
+     * @return bool
+     */
     private function validate(array $result)
     {
         return $result['Threats found'] === 0
