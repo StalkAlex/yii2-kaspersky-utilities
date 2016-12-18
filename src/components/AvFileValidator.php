@@ -12,8 +12,17 @@ use Yii;
  */
 class AvFileValidator extends Validator
 {
+    /**
+     * Message to show on form
+     * @var $virusMessage
+     */
     public $virusMessage;
 
+    /**
+     * @param \yii\base\Model $model
+     * @param string $attribute
+     * @return bool
+     */
     public function validateAttribute($model, $attribute)
     {
         assert($model->$attribute instanceof UploadedFile);
@@ -26,6 +35,10 @@ class AvFileValidator extends Validator
         return true;
     }
 
+    /**
+     * @param $filePath
+     * @return bool
+     */
     private function check($filePath)
     {
         if (Yii::$app->has('av')) {
